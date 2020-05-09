@@ -1,0 +1,36 @@
+# languages supported
+# python 
+# c++
+# c
+
+# requirements
+# python3 
+# g++ and gcc
+
+language=$1
+
+script_path="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+
+declare -a languages=("python3" "c++" "c")
+
+if [[ " ${languages[@]} " =~ " ${language} " ]]; then
+
+
+    if [ "$language" = "python3" ];then
+        extension="py"
+    elif [ "$language" = "c++" ];then
+        extension="cpp"
+    elif [ "$language" = "c" ];then
+        extension="c"
+    fi
+
+    touch "sol.${extension}"
+    touch 1.in
+    touch run.sh
+    chmod +x run.sh
+
+    cat "${script_path}/run/${language}.sh" > run.sh
+
+else
+    echo language not supported
+fi
